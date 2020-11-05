@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #written in python 3
-# Script to move GM objects under a specific location to the default one.
+# Script to move Local / Regional GM Security objects to Global GM Security objects.
 # This script is neither supported nor endorsed by VMware but meant as an example of python.
 
 from json import loads, dumps
@@ -10,21 +10,30 @@ from requests.auth import HTTPBasicAuth
 from copy import deepcopy
 from ast import literal_eval
 disable_warnings()
-
-#put your Global Manager IP or FQDN
+##########################################
+########### Start of Variables ###########
+#Global Manager IP or FQDN
 hostname = "1.1.1.1"
 
-#put your username
+#GM username
 username = "admin"
 
-#put your password
+#GM password
 password = "VMware1!VMware1!"
 
-#put the list of Region / Locations from which you want to make Global
+#List of Region / Locations you want their objects to move Global
 domains = ["LM-Paris","LM-London"]
 
-#put the security objects you want to make Global. By default it covers groups and Dfw
+#List of GM Security objects you want to move to Global (by default it covers GM Groups and DFW Sections/Rules)
 resource_types =["Domain","SecurityPolicy","Group","Rule"]
+########### End of Variables ###########
+########################################
+
+
+##########################################
+###########  Start of Script  ############
+########### DO NOT EDIT BELOW ############
+##########################################
 
 
 class NsxMgr:
@@ -158,3 +167,8 @@ if __name__ == "__main__":
 
     #Push the new configuration on the Global Manager. This will delete your old objects.
     gm.patch_conf(conf)
+
+    
+##########################################
+###########   End of Script   ############
+##########################################
